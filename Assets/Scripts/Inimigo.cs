@@ -4,6 +4,7 @@ using System.Collections;
 public class Inimigo : MonoBehaviour {
 
 	public GameObject inimigoMorto;
+	public float rotation;
 
 	// Use this for initialization
 	void Start () {
@@ -12,7 +13,7 @@ public class Inimigo : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+
 	}
 
 	void OnTriggerEnter(Collider other) {
