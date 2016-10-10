@@ -4,31 +4,30 @@ using System.Threading;
 
 public class Play1 : MonoBehaviour {
 
-	float _velocidadePositiva = 8;
-	float _velocidadeNegativa = -8;
+	float _velocidade = 6;
 	public GameObject bomba;
 	public GameObject explosao;
+	public GameObject playExplodindo;
 
 	// Use this for initialization
 	void Start () {
-	
+		
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
 		if (Input.GetKey ("right")) {
-			transform.Translate ((_velocidadePositiva * Time.deltaTime), 0, 0);
+			transform.Translate ((_velocidade * Time.deltaTime), 0, 0);
 		} else if (Input.GetKey ("left")) {
-			transform.Translate ((_velocidadeNegativa * Time.deltaTime), 0, 0);
+			transform.Translate ((-_velocidade * Time.deltaTime), 0, 0);
 		} else if (Input.GetKey ("up")) {
-			transform.Translate (0, (_velocidadePositiva * Time.deltaTime), 0);
+			transform.Translate (0, (_velocidade * Time.deltaTime), 0);
 		} else if (Input.GetKey ("down")) {
-			transform.Translate (0, (_velocidadeNegativa * Time.deltaTime), 0);
+			transform.Translate (0, (-_velocidade * Time.deltaTime), 0);
 		} else if (Input.GetKey ("space")) {
 			CriarBomba ();
 		}
-
 	}
 
 	private void CriarBomba()
@@ -45,7 +44,17 @@ public class Play1 : MonoBehaviour {
 	}
 
 	private void ExplodirBomba(){
-		explosao.transform.position = new Vector3 (bomba.transform.position.x, bomba.transform.position.y, (float)-0.07);
+		explosao.transform.position = new Vector3 (bomba.transform.position.x, bomba.transform.position.y, (float)-0.06);
 		Instantiate (explosao);
 	}
+
+	void OnTriggerEnter(Collider other) {
+		if (other.CompareTag ("Inimigo") || other.CompareTag("Explosao")) {
+			playExplodindo.transform.position = new Vector3 (gameObject.transform.position.x, gameObject.transform.position.y,(float)-0.06);
+			Destroy(gameObject);
+			Instantiate (playExplodindo);
+			Application.LoadLevel(Application.loadedLevel);
+		}
+	}
+
 }
