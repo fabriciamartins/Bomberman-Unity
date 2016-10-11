@@ -50,11 +50,15 @@ public class Play1 : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other) {
 		if (other.CompareTag ("Inimigo") || other.CompareTag("Explosao")) {
-			playExplodindo.transform.position = new Vector3 (gameObject.transform.position.x, gameObject.transform.position.y,(float)-0.06);
-			Destroy(gameObject);
-			Instantiate (playExplodindo);
-			Application.LoadLevel(Application.loadedLevel);
+			GameOver ();
 		}
+	}
+
+	private void GameOver(){
+		playExplodindo.transform.position = new Vector3 (gameObject.transform.position.x, gameObject.transform.position.y,(float)-0.06);
+		Destroy(gameObject);
+		Instantiate (playExplodindo);
+		Application.LoadLevel(Application.loadedLevel);
 	}
 
 }
